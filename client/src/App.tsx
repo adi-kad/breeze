@@ -29,13 +29,6 @@ function App() {
   return (
     <div className="App">
       <h1>Testing features</h1>
- 
-      {data && 
-      <div>
-        {data.map((hour: any) => (
-          <h2>{convertToHours(hour.dt)}</h2>
-        ))}
-      </div>}
     </div>
   );
 }
