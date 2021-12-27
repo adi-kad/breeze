@@ -1,0 +1,43 @@
+.todayPanel {
+    position: sticky;
+    left: 0;
+    top: 0;
+    padding-top: 20px;
+    height: 100vh;
+    background: #1A1824;
+}
+
+.todayPanel_input {
+    display: flex;
+    align-items: center;
+    width: 75%;
+    height: 30px;
+    border-radius: 6px;
+    margin: 0 auto;
+    border-color: transparent;
+    background: #21212F;
+    box-shadow: 0 0 0 1px rgba(232, 232, 232, 0.3),0 1px 3px 0 rgba(0,0,0,.08);
+    cursor: pointer;
+}
+
+.todayPanel_input input {
+    width: 100%;
+    padding: 0 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.todayPanel_input .search_icon {
+    margin-left: 10px;
+}
+
+.todayPanel_input button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    background: transparent;
+    border: none;
+    margin-right: 4px;
+}
