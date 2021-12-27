@@ -14,5 +14,10 @@ function kelvinToFahrenheit(kelvin) {
     return Number(Math.round(value+'e'+1)+'e-'+1);
 }
 
-export {unixToHours, kelvinToCelsius, kelvinToFahrenheit}
+function getDayToString(timestamp) {
+    var date = new Date(timestamp * 1000);
+    return date.getDay();
+}
+
+export {unixToHours, kelvinToCelsius, kelvinToFahrenheit, getDayToString};
 
