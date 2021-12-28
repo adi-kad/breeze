@@ -5,22 +5,24 @@
     padding-top: 20px;
     height: 100vh;
     background: #1A1824;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.todayPanel_input {
+.input {
     display: flex;
     align-items: center;
-    width: 75%;
+    width: 85%;
     height: 30px;
     border-radius: 6px;
     margin: 0 auto;
     border-color: transparent;
     background: #21212F;
-    box-shadow: 0 0 0 1px rgba(232, 232, 232, 0.3),0 1px 3px 0 rgba(0,0,0,.08);
     cursor: pointer;
 }
 
-.todayPanel_input input {
+.input input {
     width: 100%;
     padding: 0 10px;
     background-color: transparent;
@@ -28,11 +30,11 @@
     outline: none;
 }
 
-.todayPanel_input .search_icon {
+.input .search_icon {
     margin-left: 10px;
 }
 
-.todayPanel_input button {
+.input button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,4 +42,40 @@
     background: transparent;
     border: none;
     margin-right: 4px;
+}
+
+.display_current_day div {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.display_current {
+    height: 100%;
+    width: 100%;
+}
+
+.display_current_desc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.display_current_temp {
+    width: 50%;
+}
+
+.display_current_weatherIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.display_current_weatherIcon img {
+    height: 75px;
+    width: 75px;
+}
+
+
+.current_temp {
+    font-size: 56px;
 }
