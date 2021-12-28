@@ -1,22 +1,29 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import TodayPanel from './components/todayPanel/TodayPanel';
 import axios from 'axios';
 
 function App() { 
-  const [current, setCurrent] = useState<any>(); 
-  const [location, setLocation] = useState<string>("");
+  const [todayWeather, setTodayWeather] = useState<any>(); 
+  const [place, setPlace] = useState<string>("");
   const [coords, setCoords] = useState<any>();
-  const geoApiKey = "f7a14b99b20d28069cd6e39e6eaa5639";
+  const geoApiKey = process.env.REACT_APP_GEO_API_KEY;
 
   useEffect(() => {
-    //if user has geolocation enabled we get current position as default location
-    if ("geolocation" in navigator) {
+    console.log(process.env.REACT_APP_GEO_API_KEY)    
+    if ("geolocation" in navigator) { //if user has geolocation enabled we get current position as default location
       navigator.geolocation.getCurrentPosition(function(position) {            
         axios.get(`http://localhost:8080/api/forecast/current?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)        
         .then((response: any) => {
           setCoords({ lat: position.coords.latitude, lon: position.coords.longitude })  
-          setCurrent(response.data);
+          setTodayWeather(response.data);          
+        })
+        .then(() => {
+          axios.get(`http://api.positionstack.com/v1/reverse?access_key=${geoApiKey}&query=${position.coords.latitude},${position.coords.longitude}`)
+          .then((response: any) => {
+            setPlace(response.data.data[0].county);
+            console.log(response);
+          })
         })
         .catch((error: any) => {
           console.log(error);          
@@ -24,10 +31,10 @@ function App() {
       });
     } else { //Norrköping set to default location if no geolocation is enabled
       axios.get(`http://api.positionstack.com/v1/forward?access_key=${geoApiKey}&query=Norrköping`)
-      .then((response: any) => {
+      .then((response: any) => {        
         const {latitude, longitude} = response.data.data[0];
         setCoords({lat: latitude, lon: longitude});
-        setLocation("Norrköping"); 
+        setPlace("Norrköping"); 
       })
       .catch((error: any) => {
         console.log(error);            
@@ -35,13 +42,22 @@ function App() {
   }}, [])
 
   return (
-    <div className="App">          
+    <div className="App">    
+    {console.log(todayWeather)}      
       <div className='sidebar'>
-        <TodayPanel location={location} setLocation={setLocation} weatherData={current}/>
+        <TodayPanel 
+          place={place} 
+          setPlace={setPlace} 
+          todayWeather={todayWeather}
+          setTodayWeather={setTodayWeather}
+          coords={coords}
+          setCoords={setCoords}
+          />
       </div>
-      <div className='main'>
       
+      <div className='main'>   
       </div>
+
     </div>
   );
 }
