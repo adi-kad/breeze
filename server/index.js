@@ -12,8 +12,7 @@ app.use(cors());
 const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 //GET current forecast
-app.get('/api/forecast/current', async (req, res) => {
-    console.log(req)
+app.get('/api/forecast/current', async (req, res) => {    
     const {lat, lon} = req.query;
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APP_ID}`);

@@ -1,12 +1,11 @@
 .App {
-  background: #21212F;
+  background: hsl(230, 17%, 14%);
   min-height: 100vh;
   display: flex;
 }
 
 .sidebar {
   width: 33%;
-  background: #1A1824;
 }
 
 .main {
