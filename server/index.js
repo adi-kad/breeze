@@ -15,7 +15,7 @@ const weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Frida
 app.get('/api/forecast/current', async (req, res) => {    
     const {lat, lon} = req.query;
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APP_ID}`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${APP_ID}`);
         const data = await response.json();   
         
         if (data.cod == "400") {
@@ -25,8 +25,6 @@ app.get('/api/forecast/current', async (req, res) => {
         const currentForecast = {
             ...data.current,
             dt: unixToHours(data.current.dt), 
-            temp_C: kelvinToCelsius(data.current.temp), 
-            temp_F: kelvinToFahrenheit(data.current.temp),
             dt_day: weekDays[getDayToString(data.current.dt)]
         }
 
@@ -37,10 +35,10 @@ app.get('/api/forecast/current', async (req, res) => {
 })
 
 //GET hourly (48h) forecast
-app.get('/api/forecast/hourly', async (req, res) => {
+app.get('/api/forecast/daily', async (req, res) => {
     const {lat, lon} = req.query;
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APP_ID}`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${APP_ID}`);
         const data = await response.json();   
         
         if (data.cod == "400") {
@@ -50,8 +48,6 @@ app.get('/api/forecast/hourly', async (req, res) => {
         const hourlyForecast = data.hourly.map(hour => hour = {
             ...hour, 
             dt: unixToHours(hour.dt), 
-            temp_C: kelvinToCelsius(hour.temp), 
-            temp_F: kelvinToFahrenheit(hour.temp),
             dt_day: weekDays[getDayToString(data.current.dt)]
         });
 

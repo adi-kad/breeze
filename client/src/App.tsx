@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import TodayPanel from './components/todayPanel/TodayPanel';
 import axios from 'axios';
+import { ForecastPanel } from './components/forecast/ForecastPanel';
 
 function App() { 
   const [todayWeather, setTodayWeather] = useState<any>(); 
@@ -21,7 +22,7 @@ function App() {
         .then(() => {
           axios.get(`http://api.positionstack.com/v1/reverse?access_key=${geoApiKey}&query=${position.coords.latitude},${position.coords.longitude}`)
           .then((response: any) => {
-            setPlace(response.data.data[0].county);
+            setCoords((prev: any) => ({...prev, label: response.data.data[0].label}))
           })
         })
         .catch((error: any) => {
@@ -43,20 +44,17 @@ function App() {
   return (
     <div className="App">      
       <div className='sidebar'>
-          <TodayPanel 
-            place={place} 
-            setPlace={setPlace} 
-            todayWeather={todayWeather}
-            setTodayWeather={setTodayWeather}
-            coords={coords}
-            setCoords={setCoords}
-          />
+        <TodayPanel 
+          place={place} 
+          setPlace={setPlace} 
+          todayWeather={todayWeather}
+          setTodayWeather={setTodayWeather}
+          coords={coords}
+          setCoords={setCoords}/>
       </div>
-        
       <div className='main'>   
-      
+        {coords && <ForecastPanel coords={coords}/> }           
       </div>
-      {console.log(coords)}
     </div>
   );
 }

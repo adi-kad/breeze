@@ -64,7 +64,7 @@ const TodayPanel = (props: Props) => {
                         <span className='current_weather_place'>{props.coords.label}</span>
                     </div>
                     <div className='current_weather_field'>
-                        <span className='current_temp'>{props.todayWeather.temp_C}
+                        <span className='current_temp'>{props.todayWeather.temp}
                             <sup className='current_temp_unit'>°C</sup>                           
                         </span>                       
                     </div>
