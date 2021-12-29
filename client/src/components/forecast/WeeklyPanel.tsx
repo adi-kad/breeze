@@ -27,7 +27,7 @@ const WeeklyPanel = (props: Props) => {
             <div>
                 {weeklyWeather && <div>
                    {weeklyWeather.celsius.map((day: any) => (
-                       <h4>{day.temp.night}</h4>
+                       <h4>{day.temp.day}</h4>
                    ))}
                 </div>}
             </div>

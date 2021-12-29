@@ -33,7 +33,7 @@ export const ForecastPanel = (props: Props) => {
                 </div>
             </div>
             <div className='forecast_display'>            
-                { alternative === "daily" ? <DailyPanel/> : <WeeklyPanel coords={props.coords}/> }               
+                { alternative === "daily" ? <DailyPanel coords={props.coords}/> : <WeeklyPanel coords={props.coords}/> }               
             </div>
         </div>
     )
