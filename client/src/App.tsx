@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import TodayPanel from './components/todayPanel/TodayPanel';
 import axios from 'axios';
@@ -15,14 +15,13 @@ function App() {
       navigator.geolocation.getCurrentPosition(function(position) {            
         axios.get(`http://localhost:8080/api/forecast/current?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)        
         .then((response: any) => {
-          setCoords({ lat: position.coords.latitude, lon: position.coords.longitude })  
+          setCoords({ lat: position.coords.latitude, lng: position.coords.longitude })  
           setTodayWeather(response.data);          
         })
         .then(() => {
           axios.get(`http://api.positionstack.com/v1/reverse?access_key=${geoApiKey}&query=${position.coords.latitude},${position.coords.longitude}`)
           .then((response: any) => {
             setPlace(response.data.data[0].county);
-            console.log(response);
           })
         })
         .catch((error: any) => {
@@ -33,7 +32,7 @@ function App() {
       axios.get(`http://api.positionstack.com/v1/forward?access_key=${geoApiKey}&query=Norrköping`)
       .then((response: any) => {        
         const {latitude, longitude} = response.data.data[0];
-        setCoords({lat: latitude, lon: longitude});
+        setCoords({lat: latitude, lng: longitude});
         setPlace("Norrköping"); 
       })
       .catch((error: any) => {
@@ -42,22 +41,22 @@ function App() {
   }}, [])
 
   return (
-    <div className="App">    
-    {console.log(todayWeather)}      
+    <div className="App">      
       <div className='sidebar'>
-        <TodayPanel 
-          place={place} 
-          setPlace={setPlace} 
-          todayWeather={todayWeather}
-          setTodayWeather={setTodayWeather}
-          coords={coords}
-          setCoords={setCoords}
+          <TodayPanel 
+            place={place} 
+            setPlace={setPlace} 
+            todayWeather={todayWeather}
+            setTodayWeather={setTodayWeather}
+            coords={coords}
+            setCoords={setCoords}
           />
       </div>
-      
+        
       <div className='main'>   
+      
       </div>
-
+      {console.log(coords)}
     </div>
   );
 }

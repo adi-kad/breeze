@@ -1,8 +1,9 @@
 import React, {useCallback, useEffect} from 'react'
-import './TodayPanel.css';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import axios from 'axios';
+import './TodayPanel.css';
+import Map from '../map/Map';
 
 interface Props {
     setPlace: React.Dispatch<React.SetStateAction<string>>,
@@ -19,10 +20,8 @@ const TodayPanel = (props: Props) => {
         // event.preventDefault();
         console.log("enter submit method");        
         axios.get(`http://api.positionstack.com/v1/forward?access_key=${process.env.REACT_APP_GEO_API_KEY}&query=${props.place}`)
-        .then((response: any) => {    
-            console.log("Enter then method")    
-            console.log(response);
-            props.setCoords({ lat: response.data.data[0].latitude, lon: response.data.data[0].longitude });
+        .then((response: any) => {       
+            props.setCoords({ lat: response.data.data[0].latitude, lng: response.data.data[0].longitude, label: response.data.data[0].label});             
             fetchWeather(response.data.data[0].latitude, response.data.data[0].longitude);
         })
         .catch((error: any) => {
@@ -31,11 +30,10 @@ const TodayPanel = (props: Props) => {
         .finally(() => props.setPlace(""));
     }
     
-    const fetchWeather = (lat: any, lon: any) => {
-        axios.get(`http://localhost:8080/api/forecast/current?lat=${lat}&lon=${lon}`)      
+    const fetchWeather = (lat: any, lng: any) => {
+        axios.get(`http://localhost:8080/api/forecast/current?lat=${lat}&lon=${lng}`)      
         .then((response: any) => {
             props.setTodayWeather(response.data);
-            console.log(response)
         })
         .catch((error: any) => {
             console.log(error);
@@ -43,9 +41,8 @@ const TodayPanel = (props: Props) => {
     }
 
     return (
-        <div className='todayPanel'>
-            
-            <div className='input box-shadow' onSubmit={handleSubmit}>
+        <div className='testPanel'>
+            <div className='input' onSubmit={handleSubmit}>
                 <SearchIcon className="search_icon"/>
                 <input 
                     type="text" 
@@ -60,28 +57,36 @@ const TodayPanel = (props: Props) => {
                     <ClearIcon className="clear_icon"/>
                 </button>                            
             </div>      
-           
-           {props.todayWeather && <div className="display_current">
-                <div className='display_current_day'>
-                    <div>Tuesday <span>16:00</span></div>
-                </div>
-
-                <div className='display_current_desc'>
-                    <div className='display_current_temp'>
-                        <p className='current_temp'>{props.todayWeather.temp_C}</p>
-                        <p className='current_temp_feelsLike'>Feels like {props.todayWeather.feels_like}</p>
+                     
+            <div className="current_weather">            
+                {props.todayWeather && <div className="current_weather_fields">      
+                    <div>
+                        <span className='current_weather_place'>{props.coords.label}</span>
                     </div>
-                    <div className='display_current_weatherIcon'>
+                    <div className='current_weather_field'>
+                        <span className='current_temp'>{props.todayWeather.temp_C}
+                            <sup className='current_temp_unit'>°C</sup>                           
+                        </span>                       
+                    </div>
+                    <div className='current_weather_field'>
+                        {props.todayWeather.weather[0].main} 
                         <img src={`https://openweathermap.org/img/wn/${props.todayWeather.weather[0].icon}@2x.png`}/>
-                        <p>{props.todayWeather.weather[0].main}</p>
-                    </div>
-                </div>    
+                    </div>   
+                    <div className='current_weather_field'>
+                        Feels like 
+                        <span className="current_feels_like">{props.todayWeather.feels_like}</span>
+                    </div>   
+                    <div className='current_weather_field'>
+                        Wind temp
+                        <span className="current_wind_temp">{props.todayWeather.wind_deg}</span>
+                    </div>    
+                </div>}               
+            </div>
 
-                <div className='display_current_maps'>
+            <div className='maps'>
+                <Map coords={props.coords}></Map>
+            </div>
 
-                </div>       
-           </div>
-           } 
         </div>  
     )
 }
