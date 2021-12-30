@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
+import DisplayCard from './DisplayCard';
 
 // 4. varför props? för att "säga" att daily panelen ska innehålla en viss information
 // 5. som passas in från forecast panelen
@@ -37,9 +38,7 @@ const DailyPanel = (props: Props) => {
 
     return (
         <div className='dailyPanel'>
-            <div>
-            
-            </div>
+            <DisplayCard/>
         </div>
     )
 }
