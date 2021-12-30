@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios';
-import DisplayCard from './DisplayCard';
+import ForecastCard from './ForecastCard';
 
 interface Props {
     daily: []
@@ -11,7 +9,7 @@ const DailyPanel = (props: Props) => {
         <div className='dailyPanel'>  
             <div className='displayCards'>
                 {props.daily.map((day: any) => (
-                    <DisplayCard 
+                    <ForecastCard 
                         temp={{day: day.temp}} 
                         icon={day.weather[0].icon} 
                         hour={day.dt}/>

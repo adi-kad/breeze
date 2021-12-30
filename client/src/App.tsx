@@ -3,7 +3,7 @@ import './App.css';
 import TodayPanel from './components/todayPanel/TodayPanel';
 import axios from 'axios';
 import { ForecastPanel } from './components/forecast/ForecastPanel';
-import DailyPanel from './components/forecast/DailyPanel';
+import HighlightPanel from './components/highlightPanel/HighlightPanel';
 
 function App() { 
   const [weather, setWeather] = useState<any>(); 
@@ -58,7 +58,7 @@ function App() {
         </div>
         <div className='main'>   
           {coords && <ForecastPanel coords={coords} daily={weather.daily} weekly={weather.weekly}/> } 
-          {/* Highlighspanel */}
+          {<HighlightPanel current={weather.current}/>}
         </div>
       </div>}    
 

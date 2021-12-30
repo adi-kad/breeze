@@ -78,8 +78,8 @@ const TodayPanel = (props: Props) => {
                         <span className="current_feels_like">{props.todayWeather.feels_like}</span>
                     </div>   
                     <div className='current_weather_field'>
-                        Wind temp
-                        <span className="current_wind_temp">{props.todayWeather.wind_deg}</span>
+                        Wind gust
+                        <span className="current_wind_temp">{props.todayWeather.pressure} hPa</span>
                     </div>    
                 </div>}               
             </div>
