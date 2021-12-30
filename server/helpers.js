@@ -19,5 +19,11 @@ function getDayToString(timestamp) {
     return date.getDay();
 }
 
-export {unixToHours, kelvinToCelsius, kelvinToFahrenheit, getDayToString};
+function getDateToString(timestamp) {
+    var date = new Date(timestamp * 1000);
+    return `${date.getDate()}/${date.getMonth() + 1}` 
+    //30/12
+}
+
+export {unixToHours, kelvinToCelsius, kelvinToFahrenheit, getDayToString, getDateToString};
 

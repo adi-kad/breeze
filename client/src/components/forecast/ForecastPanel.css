@@ -65,3 +65,13 @@
     margin: 0;
     padding: 0;
 }
+
+.forecast_display {
+    overflow-x: scroll;
+    width: 95%;
+}
+
+.displayCards {
+    display: flex;
+    margin-top: 25px;
+}

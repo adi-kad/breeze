@@ -5,7 +5,9 @@ import DailyPanel from './DailyPanel';
 import WeeklyPanel from './WeeklyPanel';
 
 interface Props {
-    coords: any
+    coords: any,
+    daily: [],
+    weekly: []
 }
 
 export const ForecastPanel = (props: Props) => {
@@ -33,7 +35,7 @@ export const ForecastPanel = (props: Props) => {
                 </div>
             </div>
             <div className='forecast_display'>            
-                { alternative === "daily" ? <DailyPanel coords={props.coords}/> : <WeeklyPanel coords={props.coords}/> }               
+                { alternative === "daily" ? <DailyPanel daily={props.daily}/> : <WeeklyPanel weekly={props.weekly}/> }               
             </div>
         </div>
     )

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import fetch from "node-fetch";
-import {unixToHours, kelvinToCelsius, kelvinToFahrenheit, getDayToString} from "./helpers.js";
+import {unixToHours, kelvinToCelsius, kelvinToFahrenheit, getDayToString, getDateToString} from "./helpers.js";
 const app = express();
 const PORT = 8080;
 const APP_ID = "569934fac37ea4f4469419cf3814e561";
@@ -48,10 +48,9 @@ app.get('/api/forecast/daily', async (req, res) => {
         const hourlyForecast = data.hourly.map(hour => hour = {
             ...hour, 
             dt: unixToHours(hour.dt), 
-            dt_day: weekDays[getDayToString(data.current.dt)]
         });
 
-        return res.status(200).send(hourlyForecast);        
+        return res.status(200).send(hourlyForecast.slice(0,24));        
     } catch (error) {
         return res.send(error);
     }    
@@ -69,11 +68,13 @@ app.get('/api/forecast/weekly', async (req, res) => {
 
         if (celsiusData.cod == "400" || fahrenheitData.cod == "400") {
             return res.status(400).send("Arguments are not valid");
-        }                   
-        
+        }                           
+
         for (let i = 0; i < celsiusData.daily.length; i++) {
            celsiusData.daily[i].dt_day = weekDays[getDayToString(celsiusData.daily[i].dt)];
+           celsiusData.daily[i].dt = getDateToString(celsiusData.daily[i].dt);
            fahrenheitData.daily[i].dt_day = weekDays[getDayToString(celsiusData.daily[i].dt)];
+           fahrenheitData.daily[i].dt = getDateToString(celsiusData.daily[i].dt);
         }
 
         return res.status(200).send({
@@ -82,6 +83,33 @@ app.get('/api/forecast/weekly', async (req, res) => {
         });   
     } catch (error) {
         return res.json(error);
+    }
+})
+
+app.get('/api/forecast/all', async (req, res) => {
+    const {lat, lon} = req.query;
+    try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${APP_ID}`);
+        const data = await response.json();
+        
+        if (data.cod == "400") {
+            return res.status(400).send("Arguments are not valid");
+        }
+
+        const daily = data.hourly.map(hour => hour = {
+            ...hour, 
+            dt: unixToHours(hour.dt), 
+        });
+
+        const weekly = data.daily.map((day) => day = {
+            ...day,
+            dt: getDateToString(day.dt)
+        })
+        // data.weekly.map((day) => console.log(day))
+
+        return res.send({current: data.current, daily: daily.slice(0,25), weekly: weekly});
+    } catch (error) {
+        return res.send(error);
     }
 })
 
