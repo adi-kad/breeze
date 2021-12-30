@@ -1,0 +1,77 @@
+* {
+    font-family: "Inter";
+}
+
+.forecast {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.forecast_options {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 25px;
+}
+
+.forecast_alt {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: #8b97c6;
+    font-weight: 600;
+    padding: 0;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.alt-active {
+    color: #fff;
+}
+
+.forecast_unit {   
+    color: #8b97c6;
+    background-color: hsl(230, 17%, 34%);
+    position: relative;
+    border-radius: 50%;
+    padding: 5px;
+    border-radius: 50%;
+    border-color: transparent;
+    padding: 5px;
+    padding: 0;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 5px;    
+    font-weight: 600;
+}
+
+.unit-active {
+    color: #8b97c6;
+    background: #ffffff;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.alt-active::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    width: 100%;
+    height: 2px;
+    margin: 0;
+    padding: 0;
+}
+
+.forecast_display {
+    overflow-x: scroll;
+    width: 95%;
+}
+
+.displayCards {
+    display: flex;
+    margin-top: 25px;
+}

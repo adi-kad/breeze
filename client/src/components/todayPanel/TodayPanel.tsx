@@ -31,8 +31,9 @@ const TodayPanel = (props: Props) => {
     }
     
     const fetchWeather = (lat: any, lng: any) => {
-        axios.get(`http://localhost:8080/api/forecast/current?lat=${lat}&lon=${lng}`)      
+        axios.get(`http://localhost:8080/api/forecast/all?lat=${lat}&lon=${lng}`)      
         .then((response: any) => {
+            console.log(response);
             props.setTodayWeather(response.data);
         })
         .catch((error: any) => {
@@ -41,7 +42,7 @@ const TodayPanel = (props: Props) => {
     }
 
     return (
-        <div className='testPanel'>
+        <div className='todayPanel'>
             <div className='input' onSubmit={handleSubmit}>
                 <SearchIcon className="search_icon"/>
                 <input 
@@ -64,7 +65,7 @@ const TodayPanel = (props: Props) => {
                         <span className='current_weather_place'>{props.coords.label}</span>
                     </div>
                     <div className='current_weather_field'>
-                        <span className='current_temp'>{props.todayWeather.temp_C}
+                        <span className='current_temp'>{Math.round( props.todayWeather.temp * 10 ) / 10}
                             <sup className='current_temp_unit'>°C</sup>                           
                         </span>                       
                     </div>

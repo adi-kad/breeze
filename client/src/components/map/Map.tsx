@@ -14,17 +14,14 @@ const options = {
   disableDefaultUI: true,
 }
 
-
-
 const Map = (coords: any) => {
     const [center, setCenter] = useState<any>();
     const {isLoaded, loadError} = useLoadScript({
-        googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
-      })
+      googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
+    })
         
     useEffect(() => {   
         setCenter(coords.coords)
-        console.log(center)
     }, [coords])
 
     if (loadError) return <div>Error..</div>;
