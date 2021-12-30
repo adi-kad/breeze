@@ -1,4 +1,4 @@
-import DisplayCard from './DisplayCard';
+import ForecastCard from './ForecastCard';
 import './ForecastPanel.css';
 
 interface Props {
@@ -10,7 +10,7 @@ const WeeklyPanel = (props: Props) => {
         <div className='weeklyPanel'>          
             <div className='displayCards'>
             {props.weekly.map((day: any) => (
-                 <DisplayCard 
+                 <ForecastCard 
                  dt_day={day.dt_day} 
                  dt={day.dt}       
                  icon={day.weather[0].icon}  

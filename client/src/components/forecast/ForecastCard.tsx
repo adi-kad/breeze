@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import './DisplayCard.css';
+import './ForecastCard.css';
 
 interface Props {
     dt_day?: string,
