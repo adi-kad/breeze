@@ -9,13 +9,14 @@ function App() {
   const [weather, setWeather] = useState<any>(); 
   const [place, setPlace] = useState<string>("");
   const [coords, setCoords] = useState<any>();
+  const [unit, setUnit] = useState<string>("metric");
   const geoApiKey = process.env.REACT_APP_GEO_API_KEY;
 
   useEffect(() => {
     console.log(process.env.REACT_APP_GEO_API_KEY)    
     if ("geolocation" in navigator) { //if user has geolocation enabled we get current position as default location
       navigator.geolocation.getCurrentPosition(function(position) {            
-        axios.get(`http://localhost:8080/api/forecast/all?lat=${position.coords.latitude}&lon=${position.coords.longitude}`)        
+        axios.get(`http://localhost:8080/api/forecast/all?lat=${position.coords.latitude}&lon=${position.coords.longitude}&unit=${unit}`)        
         .then((response: any) => {
           setCoords({ lat: position.coords.latitude, lng: position.coords.longitude })  
           setWeather(response.data);        
@@ -51,14 +52,15 @@ function App() {
           <TodayPanel 
             place={place} 
             setPlace={setPlace} 
-            todayWeather={weather.current}
-            setTodayWeather={setWeather}
+            currentWeather={weather.current}
+            setWeather={setWeather}
             coords={coords}
-            setCoords={setCoords}/>
+            setCoords={setCoords}
+            unit={unit}/>
         </div>
         <div className='main'>   
-          {coords && <ForecastPanel coords={coords} daily={weather.daily} weekly={weather.weekly}/> } 
-          {<HighlightPanel current={weather.current}/>}
+          {<ForecastPanel unit={unit} setUnit={setUnit} daily={weather.daily} weekly={weather.weekly}/> } 
+          {<HighlightPanel unit={unit} current={weather.current}/>}
         </div>
       </div>}    
 
