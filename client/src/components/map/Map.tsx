@@ -3,9 +3,8 @@ import {GoogleMap, GoogleMapProps, useLoadScript} from '@react-google-maps/api';
 import mapStyle from './mapStyle';
 import './Map.css';
 
-const libraries = ["places"];
 const mapContainerStyle = {
-  width: "20vw%",
+  width: "20vw",
   height: "150px",
 };
 

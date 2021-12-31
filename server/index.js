@@ -87,9 +87,9 @@ app.get('/api/forecast/weekly', async (req, res) => {
 })
 
 app.get('/api/forecast/all', async (req, res) => {
-    const {lat, lon} = req.query;
+    const {lat, lon, unit} = req.query;
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${APP_ID}`);
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&appid=${APP_ID}`);
         const data = await response.json();
         
         if (data.cod == "400") {

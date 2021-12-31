@@ -14,7 +14,8 @@ interface Props {
         uvi: number,
         clouds: number,
         wind_deg: number
-    }
+    },
+    unit: string
 }
 
 export const HighlightPanel = (props: Props) => {
@@ -43,7 +44,7 @@ export const HighlightPanel = (props: Props) => {
                 </div>
                 <div className="highlightCard">
                     <div className="card-title">Wind Speed</div>
-                    <div className="card-value">{props.current.wind_speed}  <span className="card-value-unit">m/s</span></div>
+                    <div className="card-value">{props.current.wind_speed}  <span className="card-value-unit">{props.unit === "metric" ? 'm/s' : 'mi/h'}</span></div>
                 </div>
                 <div className="highlightCard">
                     <div className="card-title">Humidity</div>
