@@ -1,0 +1,56 @@
+.highlightPanel {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.title {
+    color: #8b97c6;
+    width: 90%;
+    font-weight: 700;
+    font-size: 14px;
+    margin: 50px 0 15px 0;
+}
+
+.card-title {
+    color: #8b97c6;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.card-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 25px;
+}
+
+.card-value-sun {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    margin-top: 15px;
+}
+
+.card-value-unit {
+    font-size: 22px;
+}
+
+.displayHighlightCards {
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.highlightCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    width: 22.5%;
+    height: 150px;
+    background-color: hsl(228, 28%, 20%);
+    border: 1px solid rgba(230, 230, 250, 0.1);
+    margin: 10px;   
+}

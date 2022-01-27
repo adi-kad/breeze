@@ -8,10 +8,11 @@ import Map from '../map/Map';
 interface Props {
     setPlace: React.Dispatch<React.SetStateAction<string>>,
     place: string,
-    todayWeather: any,
-    setTodayWeather: React.Dispatch<React.SetStateAction<any>>,
+    currentWeather: any,
+    setWeather: React.Dispatch<React.SetStateAction<any>>,
     coords: any,
     setCoords: React.Dispatch<React.SetStateAction<any>>,
+    unit: string
 }
 
 const TodayPanel = (props: Props) => {
@@ -31,15 +32,26 @@ const TodayPanel = (props: Props) => {
     }
     
     const fetchWeather = (lat: any, lng: any) => {
-        axios.get(`http://localhost:8080/api/forecast/all?lat=${lat}&lon=${lng}`)      
+        axios.get(`http://localhost:8080/api/forecast/all?lat=${lat}&lon=${lng}&unit=${props.unit}`)      
         .then((response: any) => {
             console.log(response);
-            props.setTodayWeather(response.data);
+            props.setWeather(response.data);
         })
         .catch((error: any) => {
             console.log(error);
         })
     }
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/forecast/all?lat=${props.coords.lat}&lon=${props.coords.lng}&unit=${props.unit}`)      
+        .then((response: any) => {
+            console.log(response);
+            props.setWeather(response.data);
+        })
+        .catch((error: any) => {
+            console.log(error);
+        })
+    }, [props.unit])
 
     return (
         <div className='todayPanel'>
@@ -60,26 +72,26 @@ const TodayPanel = (props: Props) => {
             </div>      
                      
             <div className="current_weather">            
-                {props.todayWeather && <div className="current_weather_fields">      
+                {props.currentWeather && <div className="current_weather_fields">      
                     <div>
                         <span className='current_weather_place'>{props.coords.label}</span>
                     </div>
                     <div className='current_weather_field'>
-                        <span className='current_temp'>{Math.round( props.todayWeather.temp * 10 ) / 10}
-                            <sup className='current_temp_unit'>°C</sup>                           
+                        <span className='current_temp'>{Math.round( props.currentWeather.temp * 10 ) / 10}
+                            <sup className='current_temp_unit'>{props.unit === "metric" ? '°C' : '°F'}</sup>                           
                         </span>                       
                     </div>
                     <div className='current_weather_field'>
-                        {props.todayWeather.weather[0].main} 
-                        <img src={`https://openweathermap.org/img/wn/${props.todayWeather.weather[0].icon}@2x.png`}/>
+                        {props.currentWeather.weather[0].main} 
+                        <img src={`https://openweathermap.org/img/wn/${props.currentWeather.weather[0].icon}@2x.png`}/>
                     </div>   
                     <div className='current_weather_field'>
                         Feels like 
-                        <span className="current_feels_like">{props.todayWeather.feels_like}</span>
+                        <span className="current_feels_like">{props.currentWeather.feels_like}</span>
                     </div>   
                     <div className='current_weather_field'>
                         Wind gust
-                        <span className="current_wind_temp">{props.todayWeather.pressure} hPa</span>
+                        <span className="current_wind_temp">{props.currentWeather.pressure} hPa</span>
                     </div>    
                 </div>}               
             </div>

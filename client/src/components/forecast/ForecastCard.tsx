@@ -9,7 +9,7 @@ interface Props {
         day: number,
         min?: number,
         max?: number
-    }
+    },
 }
 
 const DisplayCard = (props: Props) => {
@@ -20,7 +20,7 @@ const DisplayCard = (props: Props) => {
                 {props.hour ? <h5 className='displayCard_hour'>{props.hour}:00</h5> : <h5 className='displayCard_dt'>{props.dt}</h5>}
             </div>           
             <img className='displayCard_icon' src={`https://openweathermap.org/img/wn/${props.icon}@2x.png`}/>
-            <h5 className='displayCard_temp'>{Math.round( props.temp.day * 10 ) / 10}</h5>
+            <h5 className='displayCard_temp'>{Math.round( props.temp.day * 10 ) / 10} {}</h5>
             {props.temp.min && props.temp.max &&  <div className='displayCard_temp_range'>
                 <span className='temp_range_min'>{props.temp.min}</span>
                 <span className='temp_range_min'>/</span>
