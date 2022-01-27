@@ -98,7 +98,7 @@ app.get('/api/forecast/all', async (req, res) => {
 
         const daily = data.hourly.map(hour => hour = {
             ...hour, 
-            dt: unixToHours(hour.dt), 
+            dt: unixToHours(hour.dt)
         });
 
         const weekly = data.daily.map((day) => day = {
