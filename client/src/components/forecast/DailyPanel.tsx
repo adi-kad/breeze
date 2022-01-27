@@ -3,7 +3,6 @@ import ForecastCard from './ForecastCard';
 interface Props {
     daily: []
 }
-
 const DailyPanel = (props: Props) => {
     return (
         <div className='dailyPanel'>  

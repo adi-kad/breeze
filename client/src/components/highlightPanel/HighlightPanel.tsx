@@ -1,4 +1,3 @@
-import HighlightCard from "./HighlightCard";
 import './HighlightPanel.css'
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
